@@ -1,7 +1,7 @@
-import Articles from '../components/Article/Articles';
-import Home from '../components/Home/Home';
-import Login from '../components/Login/Login';
-import NotFound from '../components/404/NotFound';
+import Articles from '../pages/Article/Articles';
+import Home from '../pages/Home/Home';
+import Login from '../pages/Login/Login';
+import NotFound from '../pages/404/NotFound';
 import * as Icon from '@ant-design/icons'
 
 export const routes = [

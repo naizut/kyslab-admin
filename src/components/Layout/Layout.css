@@ -62,7 +62,7 @@
 }
 
 .nav-left .nav-item.active {
-  box-shadow: 1px 1px 5px 2px #ddd;
+  box-shadow: 0 2px 8px 0 rgb(58 128 205 / 20%);
   background: #fff;
   color: #000;
 }

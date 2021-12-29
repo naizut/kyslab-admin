@@ -5,8 +5,8 @@ import './static/styles/scaffolding.css'
 import reportWebVitals from './reportWebVitals'
 import { routes } from './router'
 import Layout from './components/Layout/Layout'
-import Login from './components/Login/Login'
-import NotFound from './components/404/NotFound'
+import Login from './pages/Login/Login'
+import NotFound from './pages/404/NotFound'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
