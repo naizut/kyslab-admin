@@ -12,7 +12,7 @@ export const routes = [
     element: <Home />
   },
   {
-    path: '/article',
+    path: 'article',
     element: <Articles />,
     name: '文章管理',
     children: [

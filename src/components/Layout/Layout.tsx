@@ -1,8 +1,8 @@
 import './Layout.css'
 import { useState, FC } from 'react'
 import { routes } from '../../router'
-import { Link } from 'react-router-dom'
-import * as Icon from '@ant-design/icons'
+import { Link, Outlet } from 'react-router-dom'
+// import * as Icon from '@ant-design/icons'
 
 const Layout: FC = (props) => {
   const [activeIndex, setActiveIndex] = useState(1)
@@ -53,7 +53,9 @@ const Layout: FC = (props) => {
           </div>
         </header> */}
         <main className="main-container">
-          <article className="content-wrapper">{props.children}</article>
+          <article className="content-wrapper">
+            <Outlet />
+          </article>
         </main>
       </section>
     </div>

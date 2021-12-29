@@ -1,15 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import './scaffolding.css'
+import './static/styles/scaffolding.css'
 import reportWebVitals from './reportWebVitals'
 import { routes } from './router'
 import Layout from './components/Layout/Layout'
 import Login from './components/Login/Login'
+import NotFound from './components/404/NotFound'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-ReactDOM.render(
+const App = () => (
   <Router>
     <Routes>
       <Route path="/login" element={<Login />}></Route>,
@@ -23,12 +24,13 @@ ReactDOM.render(
             ></Route>
           )
         })}
-        ,
       </Route>
+      <Route path="*" element={<NotFound />}></Route>
     </Routes>
-  </Router>,
-  document.getElementById('root'),
+  </Router>
 )
+
+ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
