@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import './scaffolding.css'
 import reportWebVitals from './reportWebVitals'
 import { routes } from './router'
 import Layout from './components/Layout/Layout'

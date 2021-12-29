@@ -38,17 +38,20 @@ const Layout: FC = (props) => {
           )
         })}
 
-        <div className="nav-item" onClick={() => logout()}>
-          退出
-        </div>
+        <a href="/logout" className="nav-item" onClick={() => logout()}>
+          <div className="btn-inner-wrap">
+            退出
+          </div>
+        </a>
       </nav>
+
       <section className="main-wrapper">
-        <header className="header">
+        {/* <header className="header">
           <div className="header-title">111</div>
           <div className="header-logout">
             <Icon.PoweroffOutlined />
           </div>
-        </header>
+        </header> */}
         <main className="main-container">
           <article className="content-wrapper">{props.children}</article>
         </main>
