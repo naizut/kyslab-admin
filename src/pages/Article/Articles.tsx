@@ -3,7 +3,11 @@ import axios from 'axios'
 
 class Articles extends Component {
   componentDidMount() {
-    axios.get('/api/articles/get?id=19', {}).then(res => {
+
+  }
+
+  handleClick = () => {
+    axios.get('/api/articles/get?id=16').then(res => {
       console.log(res)
     }).catch(error => {
         console.error(error)
@@ -12,7 +16,7 @@ class Articles extends Component {
 
   render() {
     return <div className="admin-article">
-      <div></div>
+      <div onClick={this.handleClick}>gggg</div>
     </div>
   }
 }

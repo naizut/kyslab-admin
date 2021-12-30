@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
@@ -101,7 +101,15 @@ module.exports = function (proxy, allowedHost) {
     },
     public: allowedHost,
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
-    proxy,
+    proxy: {
+      "/api": {
+        "target": "http://localhost:7001/",
+        "changeOrigin": true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    },
     before(app, server) {
       // Keep `evalSourceMapMiddleware` and `errorOverlayMiddleware`
       // middlewares before `redirectServedPath` otherwise will not have any effect
