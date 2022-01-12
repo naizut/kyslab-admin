@@ -1,4 +1,5 @@
-import Articles from '../pages/Article/Articles';
+import ArticleList from '../pages/Article/List';
+import ArticleDetail from '../pages/Article/Detail';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import NotFound from '../pages/404/NotFound';
@@ -13,12 +14,16 @@ export const routes = [
   },
   {
     path: 'article',
-    element: <Articles />,
+    element: <ArticleList />,
     name: '文章管理',
     children: [
       {
-        path: '/article/id',
-        element: <Articles />
+        path: '/article/:id',
+        element: <ArticleDetail />
+      },
+      {
+        path: '/article/list',
+        element: <ArticleList />
       }
     ],
     icon: <Icon.PoweroffOutlined />
