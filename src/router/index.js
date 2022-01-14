@@ -14,15 +14,14 @@ export const routes = [
   },
   {
     path: 'article',
-    element: <ArticleList />,
     name: '文章管理',
     children: [
       {
-        path: '/article/:id',
+        path: ':id',
         element: <ArticleDetail />
       },
       {
-        path: '/article/list',
+        path: 'list',
         element: <ArticleList />
       }
     ],

@@ -1,43 +1,51 @@
-import { Component } from 'react'
+import { useState, FC, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
-class Articles extends Component<any, any, {}> {
-  state = {
-    articles: []
+const Articles: FC = (props) => {
+  const [articles, setArticles] = useState<Article[]>([])
+
+  interface Article {
+    title: string,
+    content: string,
+    type: string,
+    tags: string,
+    id: number,
+    created_on: number,
+    modified_on: number
   }
 
-  componentDidMount() {
+  useEffect(() => {
     axios.post('/api/articles/query', {
       type: "",
       keywords: "",
       pageIndex: 1,
       pageSize: 10
     }).then(res => {
-      this.setState({
-        articles: [...res.data.result]
-      })
+      setArticles([...res.data.result])
     }).catch(error => {
         console.error(error)
     })
+  }, [])
+
+  let navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/article/55')
   }
 
-  handleClick = () => {
-    console.log("gg", this)
-    this.props.history.push('/article/55')
-  }
-
-  render() {
-    return <div className="admin-article">
-      <div onClick={this.handleClick}>gggg</div>
-      <div className="admin-article-list">
-        {this.state.articles.map((article:any)=>{
-          return (
-            <div key={article.id}>{article.title}</div>
-          )
-        })}
-      </div>
+  return (
+    <div className="admin-article">
+    <div onClick={handleClick}>gggg</div>
+    <div className="admin-article-list">
+      {articles.map((article:any)=>{
+        return (
+          <div key={article.id}>{article.title}</div>
+        )
+      })}
     </div>
-  }
+  </div>
+  )
 }
 
 export default Articles;
