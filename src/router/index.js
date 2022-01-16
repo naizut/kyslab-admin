@@ -1,5 +1,6 @@
 import ArticleList from '../pages/Article/List';
 import ArticleDetail from '../pages/Article/Detail';
+import ArticleEdit from '../pages/Article/Edit';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import NotFound from '../pages/404/NotFound';
@@ -13,19 +14,31 @@ export const routes = [
     element: <Home />
   },
   {
-    path: 'article',
+    path: '/article/list',
     name: '文章管理',
-    children: [
-      {
-        path: ':id',
-        element: <ArticleDetail />
-      },
-      {
-        path: 'list',
-        element: <ArticleList />
-      }
-    ],
+    element: <ArticleList />,
     icon: <Icon.PoweroffOutlined />
+  },
+  {
+    path: '/article/:id',
+    name: '文章详情',
+    element: <ArticleDetail />,
+    icon: <Icon.PoweroffOutlined />,
+    hidden: true
+  },
+  {
+    path: '/article/edit',
+    name: '文章详情',
+    element: <ArticleEdit />,
+    icon: <Icon.PoweroffOutlined />,
+    hidden: true
+  },
+  {
+    path: '/article/edit/:id',
+    name: '文章详情',
+    element: <ArticleEdit />,
+    icon: <Icon.PoweroffOutlined />,
+    hidden: true
   },
   {
     path: '/login',

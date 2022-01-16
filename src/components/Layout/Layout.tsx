@@ -5,11 +5,12 @@ import { Link, Outlet } from 'react-router-dom'
 // import * as Icon from '@ant-design/icons'
 
 const Layout: FC = (props) => {
-  const [activeIndex, setActiveIndex] = useState(1)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const logout = () => {
     console.log('gg')
   }
+  
   const handleMenuItemClick = (i: number) => {
     setActiveIndex(i)
   }
