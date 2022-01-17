@@ -3,8 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ArticleService } from '../../api/admin/article'
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
-import { Form, Input } from 'antd'
-import './Edit.css'
+import { Form, Input, Button } from 'antd'
+import './Edit.scss'
+
+import Back from "../../components/Common/Button/Back"
 
 const Articles: FC = () => {
   const [article, setArticle] = useState({
@@ -30,65 +32,72 @@ const Articles: FC = () => {
 
   let navigate = useNavigate()
 
-  const handleClick = () => {
-    navigate(-1)
-  }
-
   const handleChange = (editorState: any) => {
     setArticle({
       ...article,
       content: editorState.toHTML()
     })
-    console.log('gg')
+  }
+
+  const bindChange = (e: any) => {
+    setArticle({
+      ...article,
+      [e.target.name]: e.target.value
+    })
   }
 
   const handleSubmit = () => {
-    
+    // navigate()
   }
-
-  const myUploadFn = (v: any) => {
-    console.log(v)
-  }
-
-  const myInsert = () => {}
 
   return (
-    <div className="article">
-      <div onClick={handleClick}>Back</div>
-      <div className="article-edit">
+    <div className="article-edit">
+      <Back></Back>
+      <div className="article-edit-header">
         编辑文章
       </div>
 
       <Form labelCol={{ span: 2 }} wrapperCol={{ span: 6 }}>
         <Form.Item label="标题：">
-          <Input placeholder="title" />
+          <Input placeholder="title" name="title" onChange={bindChange} />
         </Form.Item>
-        <Form.Item label="内容：" wrapperCol={{ span: 22 }}>
+        <Form.Item label="内容：" wrapperCol={{ span: 21 }}>
           <BraftEditor
             value={article.content}
             onChange={handleChange} // 监听富文本内容变化
             controls={[
               {
                 key: 'bold',
-                text: <b>加粗</b>
+                text: <b>B</b>
               },
               'italic',
               'underline',
+              'strike-through',
+              'superscript',
+              'subscript',
+              'remove-styles',
+              'text-color',
               'separator',
+              'text-indent',
               'link',
               'separator',
+              'headings',
+              'code',
+              'blockquote',
+              'hr',
               'media',
-              'emoji'
+              'emoji',
+              'undo',
+              'redo'
             ]}
             contentStyle={{ height: 500 }} // 文本框高度
-            media={{ uploadFn: myUploadFn, onInsert: myInsert }} //媒体库回调事件
           />
         </Form.Item>
         <Form.Item label="标签：">
-          <Input placeholder="Tags, i.e.:<a,b,c>" />
+          <Input placeholder="Tags, i.e.:<a,b,c>" name="tags" onChange={bindChange} />
         </Form.Item>
         <Form.Item label="分类：">
-          <Input placeholder="Category" />
+          <Input placeholder="type" name="type" onChange={bindChange} />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -96,7 +105,7 @@ const Articles: FC = () => {
             sm: { span: 16, offset: 2 }
           }}
         >
-          <div onClick={handleSubmit}>提交</div>
+          <Button onClick={handleSubmit}>提交</Button>
         </Form.Item>
       </Form>
     </div>

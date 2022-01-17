@@ -71,7 +71,7 @@ const Articles: FC = () => {
       <div className="article-manage">
         <div className=""></div>
       </div>
-      <div className="btn-create" onClick={handleCreate}>
+      <div className="btn btn-create" onClick={handleCreate}>
         <PlusCircleOutlined />新建文章
       </div>
       <div className="article-list">

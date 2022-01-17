@@ -1,3 +1,6 @@
+@import './static/styles/global.scss';
+@import './static/styles/scaffolding.scss';
+
 body {
   margin: 0;
   font-weight: 400;
@@ -7,6 +10,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow: hidden;
 }
 
 code {

@@ -1,0 +1,10 @@
+/* 工具类 */
+
+.hover-opacity {
+  transition: all .3s;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+

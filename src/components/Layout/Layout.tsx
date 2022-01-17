@@ -1,19 +1,19 @@
-import './Layout.css'
-import { useState, FC } from 'react'
+import './Layout.scss'
+import { FC, useEffect } from 'react'
 import { routes } from '../../router'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 // import * as Icon from '@ant-design/icons'
 
 const Layout: FC = (props) => {
-  const [activeIndex, setActiveIndex] = useState(0)
 
   const logout = () => {
-    console.log('gg')
+    console.log(props)
   }
+
+  const { pathname } = useLocation();
   
-  const handleMenuItemClick = (i: number) => {
-    setActiveIndex(i)
-  }
+  useEffect(()=>{
+  },[pathname])
 
   return (
     <div className="layout__container">
@@ -27,9 +27,8 @@ const Layout: FC = (props) => {
               to={item.path}
               className={[
                 'nav-item',
-                itemIndex === activeIndex && 'active',
+                (pathname.indexOf(item.path.split('/')[1]) !== -1) && 'active',
               ].join(' ')}
-              onClick={() => handleMenuItemClick(itemIndex)}
             >
               <div className="btn-inner-wrap">
                 <div>{item.icon}</div>
@@ -39,17 +38,17 @@ const Layout: FC = (props) => {
           )
         })}
 
-        <a href="/logout" className="nav-item" onClick={() => logout()}>
+        <div className="nav-item" onClick={() => logout()}>
           <div className="btn-inner-wrap">
             退出
           </div>
-        </a>
+        </div>
       </nav>
 
       <section className="main-wrapper">
-        {/* <header className="header">
-          <div className="header-title">111</div>
-          <div className="header-logout">
+        {/* <header className="main-wrapper-header">
+          <div className="title">111</div>
+          <div className="logout">
             <Icon.PoweroffOutlined />
           </div>
         </header> */}

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { ArticleService } from "../../api/admin/article";
+import Back from "../../components/Common/Button/Back"
 
 const Articles: FC = () => { 
   const [article, setArticle] = useState({
@@ -13,7 +14,7 @@ const Articles: FC = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    ArticleService.etArticle(id).then((res:any) => {
+    ArticleService.getArticle(id).then((res:any) => {
       setArticle(res.result)
     }).catch((err: any) => {
         console.error(err)
@@ -21,13 +22,9 @@ const Articles: FC = () => {
   }, [id])
 
   let navigate = useNavigate()
-  
-  const handleClick = () => {
-    navigate(-1)
-  }
 
   return <div className="article">
-    <div onClick={handleClick}>Back</div>
+    <Back />
     <div className="article-detail">
       <h1>{article.title}</h1>
       <time>创建时间：{article.created_on}</time>
