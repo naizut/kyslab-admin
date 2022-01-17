@@ -9,6 +9,7 @@
   }
   
   .article-list {
+    td {word-break: break-all;}
     .btn-group {
       display: flex;
       justify-content: space-between;

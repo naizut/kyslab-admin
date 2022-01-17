@@ -35,11 +35,14 @@ const Articles: FC = () => {
       title: '标签',
       dataIndex: 'tags',
       key: 'tags',
+      width: 180
     },
     {
       title: '分类',
       dataIndex: 'type',
       key: 'type',
+      width: 80,
+      align: 'center'
     },
     {
       title: '创建时间',
@@ -47,7 +50,8 @@ const Articles: FC = () => {
       key: 'created_on',
       defaultSortOrder: 'descend',
       sorter: (a:Article, b:Article) => a.created_on - b.created_on,
-      render: (created_on: Article['created_on']) => {return new Date(created_on).toLocaleString()}
+      render: (created_on: Article['created_on']) => {return new Date(created_on).toLocaleString()},
+      width: 175
     },    
     {
       title: '修改时间',
@@ -56,11 +60,13 @@ const Articles: FC = () => {
       defaultSortOrder: 'descend',
       align: 'center',
       sorter: (a:any, b:any) => a.modified_on - b.modified_on,
-      render: (modified_on: Article['modified_on']) => {return (modified_on && new Date(modified_on).toLocaleString()) || '-'}
+      render: (modified_on: Article['modified_on']) => {return (modified_on && new Date(modified_on).toLocaleString()) || '-'},
+      width: 175
     },
     {
       title: '操作',
       key: 'action',
+      width: 80,
       render: (article: Article) => <div className="btn-group">
         <FormOutlined className="btn-edit" onClick={() => handleEdit(article.id)} />
         <DeleteOutlined className="btn-delete" onClick={() => handleDelete(article.id)} />
@@ -97,10 +103,6 @@ const Articles: FC = () => {
 
   let navigate = useNavigate()
 
-  const handleItemClick = (id: number) => {
-    navigate(`/article/${id}`)
-  }
-
   const handleCreate = () => {
     navigate('/article/edit')
   }
@@ -111,6 +113,17 @@ const Articles: FC = () => {
   }
 
   const handleDelete = (id: number) => {
+    ArticleService.deleteArticle(id).then((res: any)=>{
+      if(res.code === 200) {
+        setQueryInput({
+          ...queryInput,
+          pageIndex: 1
+        })
+        loadPageDatas()
+      }
+    }).catch((err: any) => {
+      console.error(err)
+    })
   }
 
   const handleChange = (pageIndex: number, pageSize: number) => {
@@ -132,16 +145,10 @@ const Articles: FC = () => {
       </div>
 
       <div className="article-list">
-        <Table bordered rowKey="id" dataSource={articles} columns={columns} pagination={false}  onRow={(record, index) => {
-          return {
-            onClick: event => {
-              console.log(index)
-            }
-          }
-        }}></Table>
+        <Table bordered rowKey="id" dataSource={articles} columns={columns} pagination={false}></Table>
       </div>
 
-      <Pagination total={totalCount} onChange={handleChange}></Pagination>
+      <Pagination current={queryInput.pageIndex} total={totalCount} onChange={handleChange}></Pagination>
     </div>
   )
 }

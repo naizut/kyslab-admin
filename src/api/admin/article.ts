@@ -30,3 +30,31 @@ ArticleService.queryArticles = (data:ArticlesQueryInput) => {
     data
   })
 }
+
+interface ArticleCreateInput {
+  title: string,
+  content: string,
+  tags: string,
+  type: string
+}
+
+ArticleService.createArticle = (data: ArticleCreateInput) => {
+  return baseService({
+    url: '/articles/create',
+    data
+  })
+}
+
+interface ArticleUpdateInput {
+  title: string,
+  content: string,
+  tags: string,
+  type: string
+}
+
+ArticleService.updateArticle = (data: ArticleUpdateInput) => {
+  return baseService({
+    url: '/articles/update',
+    data
+  })
+}

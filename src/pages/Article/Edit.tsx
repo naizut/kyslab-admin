@@ -16,27 +16,26 @@ const Articles: FC = () => {
     tags: '',
     type: ''
   })
+  const [content, setContent] = useState(BraftEditor.createEditorState(null))
   const { id } = useParams()
 
   useEffect(() => {
     if (id && id.length > 0) {
       ArticleService.getArticle(id)
         .then((res: any) => {
+          setContent(BraftEditor.createEditorState(res.result.content))
           setArticle(res.result)
         })
         .catch((err: any) => {
           console.error(err)
         })
     }
-  }, [id])
+  }, [id, article.content])
 
   let navigate = useNavigate()
 
   const handleChange = (editorState: any) => {
-    setArticle({
-      ...article,
-      content: editorState.toHTML()
-    })
+    setContent(editorState)
   }
 
   const bindChange = (e: any) => {
@@ -47,7 +46,17 @@ const Articles: FC = () => {
   }
 
   const handleSubmit = () => {
-    // navigate()
+    setArticle({
+      ...article,
+      content: content.toHTML()
+    })
+    ArticleService.createArticle(article).then((res: any)=>{
+      if(res.code === 200) {
+        navigate('/article/list')
+      }
+    }).catch((err: any) => {
+      console.error(err)
+    })
   }
 
   return (
@@ -59,11 +68,11 @@ const Articles: FC = () => {
 
       <Form labelCol={{ span: 2 }} wrapperCol={{ span: 6 }}>
         <Form.Item label="标题：">
-          <Input placeholder="title" name="title" onChange={bindChange} />
+          <Input placeholder="title" name="title" onChange={bindChange} value={article.title} />
         </Form.Item>
         <Form.Item label="内容：" wrapperCol={{ span: 21 }}>
           <BraftEditor
-            value={article.content}
+            value={content}
             onChange={handleChange} // 监听富文本内容变化
             controls={[
               {
@@ -94,10 +103,10 @@ const Articles: FC = () => {
           />
         </Form.Item>
         <Form.Item label="标签：">
-          <Input placeholder="Tags, i.e.:<a,b,c>" name="tags" onChange={bindChange} />
+          <Input placeholder="Tags, i.e.:<a,b,c>" name="tags" onChange={bindChange}  value={article.tags} />
         </Form.Item>
         <Form.Item label="分类：">
-          <Input placeholder="type" name="type" onChange={bindChange} />
+          <Input placeholder="type" name="type" onChange={bindChange}  value={article.type} />
         </Form.Item>
         <Form.Item
           wrapperCol={{
