@@ -47,8 +47,7 @@ const Articles: FC = () => {
   }
 
   const handleSubmit = () => {
-    console.log(content.toHTML())
-    ArticleService.createArticle({
+    ArticleService[id ? 'updateArticle' : 'createArticle']({
       ...article,
       content: content.toHTML()
     }).then((res: any)=>{

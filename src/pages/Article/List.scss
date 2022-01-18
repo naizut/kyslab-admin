@@ -9,10 +9,22 @@
   }
   
   .article-list {
-    td {word-break: break-all;}
-    .btn-group {
-      display: flex;
-      justify-content: space-between;
+    td {
+      word-break: break-all;
+
+      .title {
+        transition: all .3s;
+  
+        &:hover{
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+  
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 }

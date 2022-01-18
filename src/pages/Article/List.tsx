@@ -20,16 +20,11 @@ const Articles: FC = () => {
   const columns:any[] = [
     {
       title: '标题',
-      dataIndex: 'title',
       key: 'title',
       responsive: ['md'],
-      onCell: (record: Article, index: number) => {
-        return {
-          onClick: () => {
-            navigate(`/article/${record.id}`)
-          }
-        }
-      }
+      render: (article: Article) => <div>
+        <span className="title" onClick={() => navigate(`/article/edit/${article.id}`)}>{article.title}</span>
+      </div>
     },
     {
       title: '标签',
