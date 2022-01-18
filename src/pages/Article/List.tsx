@@ -46,7 +46,7 @@ const Articles: FC = () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'created_on',
+      dataIndex: 'createTime',
       key: 'created_on',
       defaultSortOrder: 'descend',
       sorter: (a:Article, b:Article) => a.created_on - b.created_on,
@@ -55,7 +55,7 @@ const Articles: FC = () => {
     },    
     {
       title: '修改时间',
-      dataIndex: 'modified_on',
+      dataIndex: 'modifyTime',
       key: 'modified_on',
       defaultSortOrder: 'descend',
       align: 'center',
@@ -115,10 +115,6 @@ const Articles: FC = () => {
   const handleDelete = (id: number) => {
     ArticleService.deleteArticle(id).then((res: any)=>{
       if(res.code === 200) {
-        setQueryInput({
-          ...queryInput,
-          pageIndex: 1
-        })
         loadPageDatas()
       }
     }).catch((err: any) => {
@@ -127,9 +123,7 @@ const Articles: FC = () => {
   }
 
   const handleChange = (pageIndex: number, pageSize: number) => {
-    const newQueryInput = {...queryInput, pageIndex, pageSize}
-    setQueryInput(newQueryInput)
-    loadPageDatas()
+    setQueryInput({...queryInput, pageIndex, pageSize})
   }
 
   return (

@@ -12,15 +12,15 @@ const Articles: FC = () => {
   const [article, setArticle] = useState({
     title: '',
     content: '',
-    created_on: 0,
     tags: '',
     type: ''
   })
   const [content, setContent] = useState(BraftEditor.createEditorState(null))
   const { id } = useParams()
+  const pageTitle = id ? '修改文章' : '新建文章'
 
   useEffect(() => {
-    if (id && id.length > 0) {
+    if (id) {
       ArticleService.getArticle(id)
         .then((res: any) => {
           setContent(BraftEditor.createEditorState(res.result.content))
@@ -29,6 +29,7 @@ const Articles: FC = () => {
         .catch((err: any) => {
           console.error(err)
         })
+      return setContent(null)
     }
   }, [id, article.content])
 
@@ -46,11 +47,11 @@ const Articles: FC = () => {
   }
 
   const handleSubmit = () => {
-    setArticle({
+    console.log(content.toHTML())
+    ArticleService.createArticle({
       ...article,
       content: content.toHTML()
-    })
-    ArticleService.createArticle(article).then((res: any)=>{
+    }).then((res: any)=>{
       if(res.code === 200) {
         navigate('/article/list')
       }
@@ -63,7 +64,7 @@ const Articles: FC = () => {
     <div className="article-edit">
       <Back></Back>
       <div className="article-edit-header">
-        编辑文章
+        {pageTitle}
       </div>
 
       <Form labelCol={{ span: 2 }} wrapperCol={{ span: 6 }}>
