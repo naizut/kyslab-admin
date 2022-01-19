@@ -21,8 +21,6 @@ const Articles: FC = () => {
     })
   }, [id])
 
-  let navigate = useNavigate()
-
   return <div className="article">
     <Back />
     <div className="article-detail">

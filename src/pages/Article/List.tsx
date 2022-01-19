@@ -1,7 +1,7 @@
 import { useState, FC, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import { Table, Pagination, Button } from 'antd';
 import { ArticleService } from "../../api/admin/article";
+import { Button, Pagination, Popconfirm, Table } from 'antd';
 import { DeleteOutlined, FormOutlined, PlusCircleOutlined } from "@ant-design/icons"
 
 import './List.scss';
@@ -64,11 +64,19 @@ const Articles: FC = () => {
       width: 80,
       render: (article: Article) => <div className="btn-group">
         <FormOutlined className="btn-edit" onClick={() => handleEdit(article.id)} />
-        <DeleteOutlined className="btn-delete" onClick={() => handleDelete(article.id)} />
+        <Popconfirm
+          title={`是否确认删除 <${article.title}> ？`}
+          onConfirm={() => handleDeleteConfirm(article.id)}
+          okText="删除"
+          cancelText="取消"
+        >
+          <DeleteOutlined className="btn-delete" />
+        </Popconfirm>
       </div>
     },
   ]
 
+  let navigate = useNavigate()
   const [articles, setArticles] = useState<Article[]>([])
   const [totalCount, setTotalCount] = useState(0)
   const [queryInput, setQueryInput] = useState({
@@ -77,15 +85,6 @@ const Articles: FC = () => {
     pageIndex: 1,
     pageSize: 10
   })
-
-  const loadPageDatas = () => {
-    ArticleService.queryArticles(queryInput).then((res: any) => {
-      setArticles([...res.result.items])
-      setTotalCount(res.result.totalCount)
-    }).catch((err: any) => {
-        console.error(err)
-    })
-  }
 
   useEffect(() => {
     ArticleService.queryArticles(queryInput).then((res: any) => {
@@ -96,20 +95,31 @@ const Articles: FC = () => {
     })
   }, [queryInput])
 
-  let navigate = useNavigate()
+  const loadPageDatas = () => {
+    ArticleService.queryArticles(queryInput).then((res: any) => {
+      setArticles([...res.result.items])
+      setTotalCount(res.result.totalCount)
+    }).catch((err: any) => {
+        console.error(err)
+    })
+  }
 
   const handleCreate = () => {
     navigate('/article/edit')
   }
 
-
   const handleEdit = (id: number) => {
     navigate(`/article/edit/${id}`)
   }
 
-  const handleDelete = (id: number) => {
+  const handleDeleteConfirm = (id: number) => {
     ArticleService.deleteArticle(id).then((res: any)=>{
       if(res.code === 200) {
+        setQueryInput({
+          ...queryInput,
+          pageIndex: 1
+        })
+        
         loadPageDatas()
       }
     }).catch((err: any) => {
