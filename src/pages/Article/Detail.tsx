@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ArticleService } from "../../api/admin/article";
 import Back from "../../components/Common/Button/Back"
 
