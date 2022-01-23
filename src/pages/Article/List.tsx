@@ -1,7 +1,7 @@
 import { useState, FC, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { ArticleService } from "../../api/admin/article";
-import { Button, Pagination, Popconfirm, Table } from 'antd';
+import { Button, Input, Pagination, Popconfirm, Select, Table } from 'antd';
 import { DeleteOutlined, FormOutlined, PlusCircleOutlined } from "@ant-design/icons"
 
 import './List.scss';
@@ -75,7 +75,12 @@ const Articles: FC = () => {
   ]
 
   let navigate = useNavigate()
+
+  const { Option } = Select;
+  const { Search } = Input;
+
   const [articles, setArticles] = useState<Article[]>([])
+  const [filterOptions, setFilterOptions] = useState([])
   const [totalCount, setTotalCount] = useState(0)
   const [queryInput, setQueryInput] = useState({
     type: "",
@@ -92,6 +97,14 @@ const Articles: FC = () => {
         console.error(err)
     })
   }, [queryInput])
+
+  useEffect(() => {
+    ArticleService.queryTypes().then((res: any) => {
+      setFilterOptions(res.result)
+    }).catch((err: any) => {
+        console.error(err)
+    })
+  }, [])
 
   const loadPageDatas = () => {
     ArticleService.queryArticles(queryInput).then((res: any) => {
@@ -129,23 +142,46 @@ const Articles: FC = () => {
     setQueryInput({...queryInput, pageIndex, pageSize})
   }
 
+  const handleSelectChange = (v: string) => {
+    setQueryInput({...queryInput, type: v})
+  }
+
+  const handleSearch = (v:string) => {
+    setQueryInput({...queryInput, keywords: v})
+  }
+
   return (
     <div className="admin-article">
       <div className="admin-article-title">
         文章管理
       </div>
 
-      <div className="article-create">
-        <Button className="btn btn-create" onClick={handleCreate}>
-          <PlusCircleOutlined />新建文章
-        </Button>
+      <div className="admin-article-header">
+        <div className="admin-article-filter">
+          <Select defaultValue={'请选择分类'} className="filter filter-type" onChange={handleSelectChange}>
+            <Option value=''>请选择分类</Option>
+            {filterOptions.map(filterOption => {
+              return <Option key={filterOption} value={filterOption}>
+                {filterOption}
+              </Option>
+            })}
+          </Select>
+          
+          <Search placeholder="请输入标题或标签" className="filter filter-search" onSearch={handleSearch}></Search>
+        </div>
+
+        <div className="article-create">
+          <Button className="btn btn-create" onClick={handleCreate}>
+            <PlusCircleOutlined />新建文章
+          </Button>
+        </div>
       </div>
 
       <div className="article-list">
         <Table bordered rowKey="id" dataSource={articles} columns={columns} pagination={false}></Table>
       </div>
 
-      <Pagination current={queryInput.pageIndex} total={totalCount} onChange={handleChange}></Pagination>
+      <Pagination current={queryInput.pageIndex} total={totalCount} onChange={handleChange} showSizeChanger pageSizeOptions={['10', '20', '30']}></Pagination>
     </div>
   )
 }

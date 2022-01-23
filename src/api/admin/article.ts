@@ -58,3 +58,10 @@ ArticleService.updateArticle = (data: ArticleUpdateInput) => {
     data
   })
 }
+
+ArticleService.queryTypes = () => {
+  return baseService({
+    url: '/articles/types',
+    method: 'get'
+  })
+}

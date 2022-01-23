@@ -4,8 +4,29 @@
     font-size: 16px;
     font-weight: bold;
   }
-  .article-create {
-    float: right;
+
+  .admin-article-header {
+    margin-bottom: 20px;
+    overflow: hidden;
+
+    .admin-article-filter {
+      float: left;
+      display: flex;
+
+      .filter-type {
+        width: 188px;
+      }
+
+      .filter-search {
+        margin-left: 16px;
+        border-radius: 4px;
+        box-shadow: none;
+      }
+    }
+
+    .article-create {
+      float: right;
+    }
   }
   
   .article-list {
@@ -26,5 +47,9 @@
         justify-content: space-between;
       }
     }
+  }
+
+  .ant-pagination {
+    text-align: center;
   }
 }
