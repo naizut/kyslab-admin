@@ -41,21 +41,19 @@ const Articles: FC = () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
+      dataIndex: 'created_on',
       key: 'created_on',
       defaultSortOrder: 'descend',
       sorter: (a:Article, b:Article) => a.created_on - b.created_on,
-      render: (created_on: Article['created_on']) => {return new Date(created_on).toLocaleString()},
       width: 175
     },    
     {
       title: '修改时间',
-      dataIndex: 'modifyTime',
+      dataIndex: 'modified_on',
       key: 'modified_on',
       defaultSortOrder: 'descend',
       align: 'center',
       sorter: (a:any, b:any) => a.modified_on - b.modified_on,
-      render: (modified_on: Article['modified_on']) => {return (modified_on && new Date(modified_on).toLocaleString()) || '-'},
       width: 175
     },
     {

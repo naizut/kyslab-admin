@@ -12,13 +12,6 @@
     td {
       word-break: break-all;
 
-      div {
-        white-space: nowrap;
-        max-width: 280px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-
       .title {
         transition: all .3s;
   
