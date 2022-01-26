@@ -1,7 +1,7 @@
-import './Layout.scss'
 import { FC, useEffect } from 'react'
 import { routes } from '../../router'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import './Layout.less';
 // import * as Icon from '@ant-design/icons'
 
 const Layout: FC = (props) => {

@@ -4,7 +4,7 @@ import { ArticleService } from "../../api/admin/article";
 import { Button, Input, Pagination, Popconfirm, Select, Table } from 'antd';
 import { DeleteOutlined, FormOutlined, PlusCircleOutlined } from "@ant-design/icons"
 
-import './List.scss';
+import './List.less';
 
 const Articles: FC = () => {
   interface Article {

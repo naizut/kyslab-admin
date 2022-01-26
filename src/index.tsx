@@ -1,13 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.scss'
-import './static/styles/scaffolding.scss'
 import reportWebVitals from './reportWebVitals'
 import { routes } from './router'
 import Layout from './components/Layout/Layout'
 import Login from './pages/Login/Login'
 import NotFound from './pages/404/NotFound'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
+import './index.less'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 

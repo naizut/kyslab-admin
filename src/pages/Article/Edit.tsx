@@ -4,7 +4,7 @@ import { ArticleService } from '../../api/admin/article'
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
 import { Form, Input, Button } from 'antd'
-import './Edit.scss'
+import './Edit.less'
 
 import Back from "../../components/Common/Button/Back"
 
