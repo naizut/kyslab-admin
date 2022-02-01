@@ -10,7 +10,7 @@ const axios = require('axios')
 
 export const baseService = axios.create({
   baseURL: '/api',
-  method: 'post',
+  method: 'POST',
   timeout: 30000
 })
 
@@ -18,11 +18,12 @@ export const baseService = axios.create({
 baseService.interceptors.request.use(
   (config: any) => {
     const { customConfig } = config // 取出自定义的config参数
-    config.headers = {
-      'Content-Type': 'application/json',
-    }
 
     config = Object.assign(config, customConfig)
+    config.headers = {
+      'Content-Type': 'application/json',
+      'ka-access-token': window.localStorage.getItem('ka-access-token') || ''
+    }
 
     return config
   },
@@ -32,15 +33,10 @@ baseService.interceptors.request.use(
 // 响应拦截器
 baseService.interceptors.response.use(
   (response: any) => {
-    const res = response.data
-    return Promise.resolve(res)
+    return Promise.resolve(response.data)
   },
 
   (error:any) => {
-    if (axios.isCancel(error)) {
-      return Promise.reject(`限制短时间内重复请求`)
-    }
-
     return Promise.reject(`网络请求出错，请检查`)
   }
 )

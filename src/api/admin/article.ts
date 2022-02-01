@@ -17,6 +17,13 @@ ArticleService.deleteArticle = (id:number) => {
   })
 }
 
+ArticleService.queryTypes = () => {
+  return baseService({
+    url: '/articles/types',
+    method: 'get'
+  })
+}
+
 interface ArticlesQueryInput {
   keywords: string,
   type: string,
@@ -56,12 +63,5 @@ ArticleService.updateArticle = (data: ArticleUpdateInput) => {
   return baseService({
     url: '/articles/update',
     data
-  })
-}
-
-ArticleService.queryTypes = () => {
-  return baseService({
-    url: '/articles/types',
-    method: 'get'
   })
 }
