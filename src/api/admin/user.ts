@@ -8,7 +8,7 @@ interface LoginInput {
 
 UserService.login = (data: LoginInput) => {
   return baseService({
-    url: '/articles/update',
+    url: '/users/login',
     data
   })
 }

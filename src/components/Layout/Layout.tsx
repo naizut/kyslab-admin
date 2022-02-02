@@ -1,13 +1,16 @@
 import { FC, useEffect } from 'react'
-import { routes } from '../../router'
+import { authRoutes } from '../../router'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import './Layout.less';
 // import * as Icon from '@ant-design/icons'
+import { useNavigate } from "react-router-dom";
 
 const Layout: FC = (props) => {
+  let navigate = useNavigate()
 
   const logout = () => {
-    console.log(props)
+    window.localStorage.removeItem("ka-access-token")
+    navigate("/login")
   }
 
   const { pathname } = useLocation();
@@ -19,20 +22,20 @@ const Layout: FC = (props) => {
     <div className="layout__container">
       <nav className="nav nav-left">
         <div className="nav-logo">KysLab Admin</div>
-        {routes.map((item, itemIndex) => {
-          if (item.hidden) return false
+        {authRoutes.map((authRoute, authRouteIndex) => {
+          if (authRoute.hidden) return false
           return (
             <Link
-              key={item.path}
-              to={item.path}
+              key={authRoute.path}
+              to={authRoute.path}
               className={[
                 'nav-item',
-                (pathname.indexOf(item.path.split('/')[1]) !== -1) && 'active',
+                (pathname.indexOf(authRoute.path.split('/')[1]) !== -1) && 'active',
               ].join(' ')}
             >
               <div className="btn-inner-wrap">
-                <div>{item.icon}</div>
-                <div>{item.name}</div>
+                <div>{authRoute.icon}</div>
+                <div>{authRoute.name}</div>
               </div>
             </Link>
           )
