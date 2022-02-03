@@ -17,9 +17,10 @@ const Login: FC = () => {
       password: values.password
     })
     
-    if(res.code === 200) window.localStorage.setItem("ka-access-token", res.result)
-    
-    navigate(location.search ? location.search.split("redirect=")[1] : '/')
+    if(res.code === 200) {
+      window.localStorage.setItem("ka-access-token", res.result)
+      navigate(-1)
+    }    
   }
 
   const onFinishFailed = (errorInfo: any) => {
