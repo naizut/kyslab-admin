@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import { authRoutes, whiteRoutes } from './router'
@@ -8,10 +8,19 @@ import NotFound from './pages/404/NotFound'
 import 'antd/dist/antd.less'
 import './index.less'
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom'
 
 const App = () => {
-  const [isLogin] = useState(!!window.localStorage.getItem('ka-access-token'))
+  const [isLogin, setIsLogin] = useState(!!window.localStorage.getItem('ka-access-token'))
+
+  useEffect(() => {
+    setIsLogin(!!window.localStorage.getItem('ka-access-token'))// 只执行了一次 明天继续优化
+  }, [])
 
   return (
     <Router>
@@ -23,12 +32,17 @@ const App = () => {
               <Route
                 key={authRoute.path}
                 path={authRoute.path}
-                element={isLogin ? authRoute.element : <Navigate to={`/login?redirect=${authRoute.path}`} />}
+                element={
+                  isLogin ? (
+                    authRoute.element
+                  ) : (
+                    <Navigate to={`/login?redirect=${authRoute.path}`} />
+                  )
+                }
               ></Route>
             )
           })}
         </Route>
-
         <Route path="/">
           {whiteRoutes.map((whiteRoute) => {
             return (
@@ -40,7 +54,6 @@ const App = () => {
             )
           })}
         </Route>
-
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </Router>

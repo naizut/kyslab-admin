@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 const Login: FC = () => {
   let navigate = useNavigate()
   let location = useLocation()
+  const href = location.search.split("=")[1] || '/'
 
   const onFinish = async (values: any) => {
     const res = await UserService.login({
@@ -19,12 +20,14 @@ const Login: FC = () => {
     
     if(res.code === 200) {
       window.localStorage.setItem("ka-access-token", res.result)
-      navigate(-1)
-    }    
+
+      navigate(href)
+    }
   }
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo)
+    navigate(href)
   }
 
   return (
