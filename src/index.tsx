@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
-import { authRoutes, whiteRoutes } from './router'
+import { authRoutes, whiteRoutes } from './router/constants'
 import Layout from './components/Layout/Layout'
 import Login from './pages/Login/Login'
 import NotFound from './pages/404/NotFound'

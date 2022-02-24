@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { authRoutes } from '../../router'
+import { authRoutes } from '../../router/constants'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import './Layout.less';
 // import * as Icon from '@ant-design/icons'
