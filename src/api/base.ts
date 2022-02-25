@@ -37,8 +37,11 @@ baseService.interceptors.response.use(
   },
 
   (error:any) => {
-    console.log(error) // 若返回Token过期 则清空本地token并跳转登录页
-    window.localStorage.setItem('ka-access-token', '')
+    const { code } = error.response.data
+    if (code === 20001 || code === 20002) {
+      window.localStorage.setItem('ka-access-token', '')
+      window.location.href = '/login'
+    }
     return Promise.reject(`网络请求出错，请检查`)
   }
 )
