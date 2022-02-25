@@ -21,7 +21,7 @@ const Login: FC = () => {
     if(res.code === 200) {
       window.localStorage.setItem("ka-access-token", res.result)
 
-      navigate(href)
+      window.location.href = href
     }
   }
 

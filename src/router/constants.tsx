@@ -26,7 +26,6 @@ export const authRoutes = [
     path: '/',
     name: '首页',
     hidden: true,
-    redirect: '/home',
     element: <Home />
   },
   {
