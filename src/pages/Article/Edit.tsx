@@ -49,7 +49,8 @@ const Articles: FC = () => {
   const handleSubmit = () => {
     ArticleService[id ? 'updateArticle' : 'createArticle']({
       ...article,
-      content: content.toHTML()
+      content: content.toHTML(),
+      modifiedOn: Math.floor(new Date().getTime() / 1000)
     }).then((res: any)=>{
       if(res.code === 200) {
         navigate('/article/list')
