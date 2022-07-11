@@ -81,6 +81,7 @@ const Articles: FC = () => {
 
   const [articles, setArticles] = useState<Article[]>([])
   const [filterOptions, setFilterOptions] = useState([])
+  const [tableLoading, setTableLoading] = useState(false)
   const [totalCount, setTotalCount] = useState(0)
   const [queryInput, setQueryInput] = useState({
     type: "",
@@ -90,9 +91,11 @@ const Articles: FC = () => {
   })
 
   useEffect(() => {
+    setTableLoading(true)
     ArticleService.queryArticles(queryInput).then((res: any) => {
       setArticles([...res.result.items])
       setTotalCount(res.result.totalCount)
+      setTableLoading(false)
     }).catch((err: any) => {
         console.error(err)
     })
@@ -107,9 +110,11 @@ const Articles: FC = () => {
   }, [])
 
   const loadPageDatas = () => {
+    setTableLoading(true)
     ArticleService.queryArticles(queryInput).then((res: any) => {
       setArticles([...res.result.items])
       setTotalCount(res.result.totalCount)
+      setTableLoading(false)
     }).catch((err: any) => {
         console.error(err)
     })
@@ -178,7 +183,7 @@ const Articles: FC = () => {
       </div>
 
       <div className="article-list">
-        <Table bordered rowKey="id" dataSource={articles} columns={columns} pagination={false}></Table>
+        <Table bordered rowKey="id" dataSource={articles} columns={columns} pagination={false} loading={tableLoading}></Table>
       </div>
 
       <Pagination current={queryInput.pageIndex} total={totalCount} onChange={handleChange} showSizeChanger pageSizeOptions={['10', '20', '30']}></Pagination>
