@@ -1,6 +1,7 @@
 import ArticleList from '../pages/Article/List'
 import ArticleDetail from '../pages/Article/Detail'
 import ArticleEdit from '../pages/Article/Edit'
+import CommentList from '../pages/Comment/List'
 import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import NotFound from '../pages/404/NotFound'
@@ -53,21 +54,24 @@ export const authRoutes = [
     path: '/article/:id',
     name: '文章详情',
     element: <ArticleDetail />,
-    icon: <Icon.PoweroffOutlined />,
     hidden: true
   },
   {
     path: '/article/edit',
     name: '文章详情',
     element: <ArticleEdit />,
-    icon: <Icon.PoweroffOutlined />,
     hidden: true
   },
   {
     path: '/article/edit/:id',
     name: '文章详情',
     element: <ArticleEdit />,
-    icon: <Icon.PoweroffOutlined />,
     hidden: true
-  }
+  },
+  {
+    path: '/comment/list',
+    name: '评论管理',
+    element: <CommentList />,
+    icon: <Icon.PoweroffOutlined />
+  },
 ]
