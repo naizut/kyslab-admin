@@ -3,10 +3,7 @@ export const CommentService: any = {}
 
 CommentService.deleteComment = (id:number) => {
   return baseService({
-    url: `/comments/delete`,
-    data: {
-      id
-    }
+    url: `/comments/delete/${id}`,
   })
 }
 

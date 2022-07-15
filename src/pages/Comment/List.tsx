@@ -7,23 +7,23 @@ import { DeleteOutlined } from "@ant-design/icons"
 import './List.less';
 
 const Comments: FC = () => {
-  interface Article {
-    title: string,
+  interface Comment {
+    id: number,
     content: string,
     type: string,
     tags: string,
-    id: number,
+    article_id: number,
     created_on: number,
-    modified_on: number
+    like_count: number
   }
 
   const columns:any[] = [
     {
-      title: '标题',
-      key: 'title',
+      title: '内容',
+      key: 'content',
       responsive: ['md'],
-      render: (article: Article) => <div>
-        <span className="title" onClick={() => navigate(`/article/edit/${article.id}`)}>{article.title}</span>
+      render: (comment: Comment) => <div>
+        <span className="title" onClick={() => window.open(`https://www.zhouwenkai.com/blog/detail?id=${comment.article_id}`)}>{comment.content}</span>
       </div>
     },
     {
@@ -44,17 +44,17 @@ const Comments: FC = () => {
       dataIndex: 'created_on',
       key: 'created_on',
       defaultSortOrder: 'descend',
-      sorter: (a:Article, b:Article) => a.created_on - b.created_on,
+      sorter: (a:Comment, b:Comment) => a.created_on - b.created_on,
       width: 175
     },
     {
       title: '操作',
       key: 'action',
       width: 80,
-      render: (article: Article) => <div className="btn-group">
+      render: (comment: Comment) => <div className="btn-group">
         <Popconfirm
-          title={`是否确认删除 <${article.title}> ？`}
-          onConfirm={() => handleDeleteConfirm(article.id)}
+          title={`是否确认删除该评论 ？`}
+          onConfirm={() => handleDeleteConfirm(comment.id)}
           okText="删除"
           cancelText="取消"
         >
@@ -63,11 +63,9 @@ const Comments: FC = () => {
       </div>
     },
   ]
-
-  let navigate = useNavigate()
   const { Search } = Input;
 
-  const [comments, setComments] = useState<Article[]>([])
+  const [comments, setComments] = useState<Comment[]>([])
   const [tableLoading, setTableLoading] = useState(false)
   const [totalCount, setTotalCount] = useState(0)
   const [queryInput, setQueryInput] = useState({
@@ -99,7 +97,7 @@ const Comments: FC = () => {
   }
 
   const handleDeleteConfirm = (id: number) => {
-    CommentService.deleteArticle(id).then((res: any)=>{
+    CommentService.deleteComment(id).then((res: any)=>{
       if(res.code === 200) {
         setQueryInput({
           ...queryInput,
