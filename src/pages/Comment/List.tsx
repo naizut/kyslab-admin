@@ -1,5 +1,4 @@
 import { useState, FC, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
 import { CommentService } from "../../api/admin/comment";
 import { Input, Pagination, Popconfirm, Table } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons"
@@ -120,14 +119,14 @@ const Comments: FC = () => {
   }
 
   return (
-    <div className="admin-article">
-      <div className="admin-article-title">
-        文章管理
+    <div className="admin-comment admin-comment">
+      <div className="admin-comment-title">
+        评论管理
       </div>
 
-      <div className="admin-article-header">
-        <div className="admin-article-filter">          
-          <Search placeholder="请输入评论" className="filter filter-search" onSearch={handleSearch}></Search>
+      <div className="admin-comment-header">
+        <div className="admin-comment-filter">          
+          <Search placeholder="请输入评论" className="filter" onSearch={handleSearch}></Search>
         </div>
       </div>
 
